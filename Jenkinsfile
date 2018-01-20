@@ -1,4 +1,56 @@
+stage('Static Analysis - Source') {
+  steps {
+    parallel(
+      'Lint': {}.
+      'Dependencies': {},
+      'Security': {}
+      )
+  }
+}
+stage ('Build App') {
+  steps {
+    echo 'Build app'
+  }
+}
+stage('UnitTests') {}
+stage('Analyze dockerFile') {
+  parallel(
+    'Static Analysis': {},
+    'Compliance': {}
+    )
+}
+stage('Build Container') {
+  echo 'Build container image'
+}
+stage('Analyze docker image') {
+  parallel(
+    'Static Analysis': {},
+    'Compliance': {},
+    'Security': {},
+    'Dependencies': {}
+    )
+}
+stage('Test Container') {
+  echo 'Run container and test'
+}
+stage('Publish docker image') {
+  echo 'Upload to registry'
+}
 
+stage('Build Container') {
+  steps{
+    parallel(
+      'IQ-BOM': {
+      },
+      'Static Analysis': {
+        echo '...run SonarQube or other SAST tools here'
+      },
+      'Build Container': {
+      })
+  }
+}
+'Test Container'
+// OLD
 stage('Build Docker') {
   node('slave') {
     stage('Prep') {
