@@ -1,7 +1,7 @@
 stage('Static Analysis - Source') {
   steps {
     parallel(
-      'Lint': {}.
+      'Lint': {},
       'Dependencies': {},
       'Security': {}
       )
