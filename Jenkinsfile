@@ -9,6 +9,10 @@ stage ('Build App') {
   echo 'Build app'
 }
 stage('UnitTests') {}
+stage('Package App') {
+  stage('Build package') {}
+  stage('Publish package') {}
+}
 stage('Analyze dockerFile') {
   parallel(
     'Static Analysis': {},
@@ -33,43 +37,16 @@ stage('Publish docker image') {
   echo 'Upload to registry'
 }
 
-stage('Build Container') {
-  parallel(
-    'IQ-BOM': {
-    },
-    'Static Analysis': {
-      echo '...run SonarQube or other SAST tools here'
-    },
-    'Build Container': {
-    })
-}
-'Test Container'
-// OLD
-stage('Build Docker') {
-  node('slave') {
-    stage('Prep') {
-      echo 'Prep for build'
-    }
-    stage('Build') {
-      echo 'Building docker image'
-    }
-    stage('Validate') {
-      echo 'Validate docker image'
-    }
-    stage('Upload') {
-      echo 'Upload image to registry'
-    }
-  }
-}
 milestone 1
-stage('Deploy One'){
+
+stage('Deploy Dev'){
   node('slave') {
-    echo 'Deploying to one'
+    echo 'Deploying to Dev'
   }
 }
-stage('Deploy Test') {
+stage('Deploy QA') {
   node('slave') {
-    echo 'Deploying to test'
+    echo 'Deploying to QA'
   }
 }
 stage('Deploy Prod') {
