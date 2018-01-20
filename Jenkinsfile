@@ -1,16 +1,12 @@
 stage('Static Analysis - Source') {
-  steps {
-    parallel(
-      'Lint': {},
-      'Dependencies': {},
-      'Security': {}
-      )
-  }
+  parallel(
+    'Lint': {},
+    'Dependencies': {},
+    'Security': {}
+    )
 }
 stage ('Build App') {
-  steps {
-    echo 'Build app'
-  }
+  echo 'Build app'
 }
 stage('UnitTests') {}
 stage('Analyze dockerFile') {
@@ -38,16 +34,14 @@ stage('Publish docker image') {
 }
 
 stage('Build Container') {
-  steps{
-    parallel(
-      'IQ-BOM': {
-      },
-      'Static Analysis': {
-        echo '...run SonarQube or other SAST tools here'
-      },
-      'Build Container': {
-      })
-  }
+  parallel(
+    'IQ-BOM': {
+    },
+    'Static Analysis': {
+      echo '...run SonarQube or other SAST tools here'
+    },
+    'Build Container': {
+    })
 }
 'Test Container'
 // OLD
