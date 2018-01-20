@@ -10,6 +10,7 @@ stage ('Build App') {
 }
 stage('UnitTests') {}
 stage('Package App') {
+  // These are separate stages, but Blue Ocean doesn't see them as such
   stage('Build package') {}
   stage('Publish package') {}
 }
